@@ -2,6 +2,7 @@
 
 import { Logger } from './utils/logger';
 import { Config } from './config/config';
+import './mcp/server'; // Import the MCP server to start it
 
 /**
  * Main application entry point
@@ -9,28 +10,28 @@ import { Config } from './config/config';
  */
 async function main(): Promise<void> {
   const logger = new Logger('Main');
-  
+
   try {
     logger.info('Starting application...');
-    
+
     // Load configuration
     const config = new Config();
     logger.info(`Application configured for environment: ${config.environment}`);
-    
-    // TODO: Initialize your MCP server here
-    logger.info('Application initialized successfully');
-    
+
+    // The MCP server is imported and will start automatically
+    logger.info('MCP server imported and starting...');
+
     // Keep the process running
     process.on('SIGINT', () => {
       logger.info('Received SIGINT, shutting down gracefully...');
       process.exit(0);
     });
-    
+
     process.on('SIGTERM', () => {
       logger.info('Received SIGTERM, shutting down gracefully...');
       process.exit(0);
     });
-    
+
   } catch (error) {
     logger.error('Failed to start application:', error);
     process.exit(1);
